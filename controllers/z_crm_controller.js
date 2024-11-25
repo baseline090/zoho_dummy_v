@@ -129,9 +129,35 @@ const fetchEmailsAndCompanies = async (req, res) => {
   }
 };
 
+
+
+// controller for to feth the owner from the database
+const fetchOwners = async (req, res) => {
+  try {
+    // Fetch data from the database, projecting only the required fields
+    const ownersData = await Lead.find({}, 'Owner.id Owner.email Owner.name');
+
+    // Check if data was found
+    if (!ownersData || ownersData.length === 0) {
+      return res.status(404).json({ message: 'No owners found in the database' });
+    }
+
+    // Send the fetched data as a response
+    res.status(200).json({ data: ownersData });
+  } catch (error) {
+    console.error('Error fetching owner details:', error.message);
+    res.status(500).json({ error: 'Failed to fetch owner details' });
+  }
+};
+
+
+
+
+
 // Export the entire controller object
 module.exports = {
   fetchLeadsData,
   fetchAndStoreLeadsData,
-  fetchEmailsAndCompanies
+  fetchEmailsAndCompanies,
+    fetchOwners
 };
