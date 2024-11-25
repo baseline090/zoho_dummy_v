@@ -159,5 +159,5 @@ module.exports = {
   fetchLeadsData,
   fetchAndStoreLeadsData,
   fetchEmailsAndCompanies,
-    fetchOwners
+  fetchOwners
 };
